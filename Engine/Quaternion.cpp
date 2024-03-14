@@ -5,8 +5,6 @@
 #include "Quaternion.h"
 #include <cmath>
 
-using namespace Engine;
-
 Quaternion::Quaternion() : s(0), v() {}
 Quaternion::Quaternion(float s_, Vector3 v_) : s{s_}, v(v_) {}
 // Quaternion functions

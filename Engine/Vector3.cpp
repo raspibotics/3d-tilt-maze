@@ -8,9 +8,6 @@
 
 const float pi = 3.141592;
 
-
-using namespace Engine;
-
 // Default constructor initialises Vector3 with {0, 0, 0}
 Vector3::Vector3() : x(0), y(0), z(0) {}
 

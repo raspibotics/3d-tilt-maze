@@ -7,38 +7,32 @@
 
 #include "Vector3.h"
 
+class Quaternion {
+    public:
+        float s;
+        Vector3 v;
+        // Constructors
+        Quaternion();
+        Quaternion(float s_, Vector3 v_);
+        // Quaternion functions
+        [[nodiscard]] float magnitude() const;
+        void normalise();
+        [[nodiscard]] Quaternion inverse() const;
+        [[nodiscard]] float dot(Quaternion rhs) const;
 
-namespace Engine {
+        // Operator overloading for Quaternions:
 
-    class Quaternion {
-        public:
-            float s;
-            Vector3 v;
-            // Constructors
-            Quaternion();
-            Quaternion(float s_, Vector3 v_);
-            // Quaternion functions
-            [[nodiscard]] float magnitude() const;
-            void normalise();
-            [[nodiscard]] Quaternion inverse() const;
-            [[nodiscard]] float dot(Quaternion rhs) const;
-
-            // Operator overloading for Quaternions:
-
-            // Addition and subtraction operations
-            Quaternion operator+(Quaternion obj) const;
-            void operator+=(Quaternion obj);
-            Quaternion operator-(Quaternion obj) const;
-            void operator-=(Quaternion obj);
-            // Multiplication/Division operations
-            Quaternion operator*(Quaternion rhs) const;
-            Quaternion operator*(float scalar) const;
-            Quaternion operator/(float scalar) const;
+        // Addition and subtraction operations
+        Quaternion operator+(Quaternion obj) const;
+        void operator+=(Quaternion obj);
+        Quaternion operator-(Quaternion obj) const;
+        void operator-=(Quaternion obj);
+        // Multiplication/Division operations
+        Quaternion operator*(Quaternion rhs) const;
+        Quaternion operator*(float scalar) const;
+        Quaternion operator/(float scalar) const;
 };
 
-    Quaternion operator*(float scalar, Quaternion rhs);
-
-}
-
+Quaternion operator*(float scalar, Quaternion rhs);
 
 #endif //QUATERNION_H
