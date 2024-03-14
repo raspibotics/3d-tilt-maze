@@ -5,6 +5,8 @@
 #include "Vector2.h"
 #include <cmath>
 
+using namespace Engine;
+
 const float pi = 3.141592;
 
 Vector2::Vector2() : x(0), y(0) {}
