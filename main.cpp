@@ -1,6 +1,9 @@
 #include "mbed.h"
-#include "Vector3.h"
+#include <vector>
 #include <iostream>
+
+// Include Game Engine
+#include "Engine.h"
 
 // main() runs in its own thread in the OS
 int main() {
@@ -16,6 +19,14 @@ int main() {
 
     v.rotate(21.0, {5,4,3});
     v.print();
+
+    // Define a unit cube
+    std::vector<Vector3> cube = {
+        {0,0,0}, {1,0,0}, {0,0,1}, {1,0,1}, 
+        {0,1,0}, {1,1,0}, {0,1,1}, {1,1,1}
+    };
+
+    
 
 }
 
