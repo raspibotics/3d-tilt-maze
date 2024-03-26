@@ -20,6 +20,9 @@ class Quaternion {
         [[nodiscard]] Quaternion inverse() const;
         [[nodiscard]] float dot(Quaternion rhs) const;
 
+        // TODO - implement SLERP for interpolating between rotations
+        
+
         // Operator overloading for Quaternions:
 
         // Addition and subtraction operations

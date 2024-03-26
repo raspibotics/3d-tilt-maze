@@ -1,3 +1,4 @@
+#include "Quaternion.h"
 #include "mbed.h"
 #include <vector>
 #include <iostream>
@@ -19,6 +20,9 @@ int main() {
 
     v.rotate(21.0, {5,4,3});
     v.print();
+    
+    // Create a camera
+    Camera mainCamera({0,0,10});
 
     // Define a unit cube
     std::vector<Vector3> cube = {
@@ -26,7 +30,6 @@ int main() {
         {0,1,0}, {1,1,0}, {0,1,1}, {1,1,1}
     };
 
-    
-
+    mainCamera.renderObject3D(cube);
+    // TODO Create an interpolation method
 }
-
