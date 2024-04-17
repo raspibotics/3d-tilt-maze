@@ -24,12 +24,12 @@ int main() {
     // Create a camera
     Camera mainCamera({0,0,10});
 
-    // Define a unit cube
+    // Define a unit cube in gray code
     std::vector<Vector3> cube = {
-        {0,0,0}, {1,0,0}, {0,0,1}, {1,0,1}, 
-        {0,1,0}, {1,1,0}, {0,1,1}, {1,1,1}
+        {0,0,0}, {0,0,1}, {0,1,1}, {0,1,0}, 
+        {1,1,0}, {1,1,1}, {1,0,1}, {1,0,0}
     };
 
     mainCamera.renderObject3D(cube);
-    // TODO Create an interpolation method
+    // TODO Create an interpolation method - SLERP 
 }

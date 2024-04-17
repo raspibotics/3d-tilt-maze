@@ -18,7 +18,6 @@ class Camera {
         Vector3 getPosition();
 
         void renderObject3D(std::vector<Vector3> vertices);
-
 };
 
 
