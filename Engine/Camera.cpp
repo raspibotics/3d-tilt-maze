@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Vector2.h"
+#include "Vector3.h"
 #include <vector>
 
 Camera::Camera() : _position({0,0,0}) {}
@@ -14,9 +15,17 @@ std::vector<Vector2> Camera::projectObjectToPlane(std::vector<Vector3> vertices)
     // Loop through vertices
     for (Vector3 vertex : vertices) {
         // Project points into 2D - orthographic projection 
-        projected_points.push_back({vertex.x, vertex.z});
+        projected_points.push_back({static_cast<int>(vertex.x), static_cast<int>(vertex.z)});
     }
-    // Remove duplicate vertices for efficiency - TODO will need to overload comparison operators for Vectors first
 
     return projected_points;
+}
+
+// Iterate through points and rotate them 
+std::vector<Vector3> Camera::rotateGameObject(std::vector<Vector3> gameObj, Vector3 axis, float theta){
+    std::vector<Vector3> rotatedObj; 
+    for (Vector3 vertex : gameObj) {
+        rotatedObj.push_back(vertex.rotate(theta, axis));
+    }
+    return rotatedObj;
 }

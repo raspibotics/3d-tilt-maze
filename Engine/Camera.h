@@ -19,6 +19,7 @@ class Camera {
         Vector3 getPosition();
 
         std::vector<Vector2> projectObjectToPlane(std::vector<Vector3> vertices);
+        std::vector<Vector3> rotateGameObject(std::vector<Vector3> gameObj, Vector3 axis, float theta);
 };
 
 

@@ -7,11 +7,11 @@
 
 class Vector2 {
     public:
-        float x;
-        float y;
+        int x;
+        int y;
 
         Vector2();
-        Vector2(float x_, float y_);
+        Vector2(int x_, int y_);
         [[nodiscard]] float magnitude() const;
         [[nodiscard]] float dot(Vector2 rhs) const;
         void rotate(float angle);

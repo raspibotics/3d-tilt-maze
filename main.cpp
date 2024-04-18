@@ -1,6 +1,8 @@
+#include "ThisThread.h"
 #include "Vector2.h"
+#include "Vector3.h"
 #include "mbed.h"
-#include <iostream>
+#include <stdio.h>
 
 // Include libraries for LCD
 #include "N5110.h"
@@ -16,47 +18,74 @@
 N5110 lcd(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
 
 // Function definitions
-void renderScene(std::vector<Vector2> vertices);
+void drawCube(std::vector<Vector2> cubeBottomFacePoints, std::vector<Vector2> cubeTopFacePoints);
 
 int main() {
     // Initialise the LCD
     lcd.init(LPH7366_1);
     lcd.setContrast(0.55);      // Set contrast to 55%
-    lcd.setBrightness(0.5);     // Set brightness to 50% (utilises the PWM)
+    lcd.setBrightness(0.0);     // Set brightness to 50% (utilises the PWM)
 
     // Create a camera
     Camera mainCamera({0,0,10});
 
-    // Define a unit cube in gray code
-    std::vector<Vector3> cube = {
-        {0,0,0}, {0,0,1}, {0,1,1}, {0,1,0}, 
-        {1,1,0}, {1,1,1}, {1,0,1}, {1,0,0}
+/*
+    std::vector<Vector3> cubeBottomFace = {
+        {0,0,0}, {0,0,1}, {1,0,1}, {1,0,0} // Bottom face
+    };
+    std::vector<Vector3> cubeTopFace = {
+        {0,1,0}, {0,1,1}, {1,1,1}, {1,1,0} // Top face
+    };
+*/
+
+    std::vector<Vector3> cubeBottomFace = {
+        {20,0,20}, {20,0,40}, {40,0,40}, {40,0,20} // Bottom face
+    };
+    std::vector<Vector3> cubeTopFace = {
+        {20,20,20}, {20,20,40}, {40,20,40}, {40,20,20} // Top face
     };
 
-    // Scale the cube
-    for (Vector3 vertex : cube) {
-        vertex*=50;
+    auto cubeBottomFacePoints = mainCamera.projectObjectToPlane(cubeBottomFace);
+    auto cubeTopFacePoints = mainCamera.projectObjectToPlane(cubeTopFace);
+
+    auto rotatedBottomFace = mainCamera.rotateGameObject(cubeBottomFace, {1,0,1}, 5);
+    auto rotatedTopFace = mainCamera.rotateGameObject(cubeTopFace, {1,0,1}, 5);
+
+    while (true) {
+        // TODO Create an interpolation method - SLERP 
+        drawCube(cubeBottomFacePoints, cubeTopFacePoints);
+        ThisThread::sleep_for(100ms);
+        cubeBottomFacePoints.clear();
+        cubeTopFacePoints.clear();
+        cubeBottomFacePoints = mainCamera.projectObjectToPlane(rotatedBottomFace);
+        cubeTopFacePoints = mainCamera.projectObjectToPlane(rotatedTopFace);
+        rotatedBottomFace = mainCamera.rotateGameObject(rotatedBottomFace, {1,0,1}, 5);
+        rotatedTopFace = mainCamera.rotateGameObject(rotatedTopFace, {1,0,1}, 5);
     }
-
-    // TODO Create an interpolation method - SLERP 
-    std::vector<Vector2> projected_points = mainCamera.projectObjectToPlane(cube);
-
-    for (auto point : projected_points) {
-        std::cout << "point" << "\n";
-        point.print();
-    }
-
-    renderScene(projected_points);
+    
 }
-
 // Draw lines between each of these points 
-void renderScene(std::vector<Vector2> vertices) {
-    // Iterate through the vertices
-    for (size_t i = 0; i < vertices.size() - 1; i++) {
-        // Get the current and next vertices
-        Vector2 currentVertex = vertices[i];
-        Vector2 nextVertex = vertices[i + 1];
-        // Draw a line between current and next vertices
+void drawCube(std::vector<Vector2> cubeBottomFacePoints, std::vector<Vector2> cubeTopFacePoints) {
+    lcd.clear();
+    // Draw the bottom face
+     for (size_t i = 0; i < cubeBottomFacePoints.size(); ++i) {
+        Vector2 currentVertex = cubeBottomFacePoints[i];
+        Vector2 nextVertex = cubeBottomFacePoints[(i + 1) % cubeBottomFacePoints.size()]; // Next vertex (wrap around for last vertex)
+        lcd.drawLine(currentVertex.x, currentVertex.y, nextVertex.x, nextVertex.y, 1);
+
+    }
+    // Draw the edges
+     for (size_t i = 0; i < cubeBottomFacePoints.size(); ++i) {
+        Vector2 currentVertex = cubeBottomFacePoints[i];
+        Vector2 nextVertex = cubeTopFacePoints[i]; 
+        lcd.drawLine(currentVertex.x, currentVertex.y, nextVertex.x, nextVertex.y, 1); 
+     }
+     // Draw the top face
+     for (size_t i = 0; i < cubeTopFacePoints.size(); ++i) {
+        Vector2 currentVertex = cubeTopFacePoints[i];
+        Vector2 nextVertex = cubeTopFacePoints[(i + 1) % cubeTopFacePoints.size()]; // Next vertex (wrap around for last vertex)
         lcd.drawLine(currentVertex.x, currentVertex.y, nextVertex.x, nextVertex.y, 1);
     }
+    // Update the LCD
+    lcd.refresh(); 
 }
