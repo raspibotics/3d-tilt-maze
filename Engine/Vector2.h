@@ -5,6 +5,9 @@
 #ifndef VECTOR2_H
 #define VECTOR2_H
 
+
+// Take integers only as these relate to coordinates on the LCD screen 
+
 class Vector2 {
     public:
         int x;

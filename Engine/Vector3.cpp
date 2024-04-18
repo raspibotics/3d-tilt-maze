@@ -33,13 +33,13 @@ Vector3 Vector3::cross(Vector3 rhs) const {
 }
 
 // TODO Not the most efficient implementation of this - maths can be simplified but will do for now
-Vector3 Vector3::rotate(float t_degrees, Vector3 axis) {
+void Vector3::rotate(float t_degrees, Vector3 axis) {
     float t_rad = t_degrees*pi/180; // Convert to radians
     Quaternion vec = {0, (*this)}; // Create a pure quaternion from current Vector3
     axis.normalise(); 
     Quaternion rotationQuaternion(cosf(t_rad/2), sinf(t_rad/2)*axis);
     Quaternion result = rotationQuaternion * vec * rotationQuaternion.inverse();
-    return {result.v.x, result.v.y, result.v.z};
+    x = result.v.x; y = result.v.y; z = result.v.z;
 }
 
 // -------------------------------

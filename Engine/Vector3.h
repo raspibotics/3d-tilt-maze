@@ -19,7 +19,7 @@ class Vector3 {
         [[nodiscard]] float magnitude() const;
         [[nodiscard]] float dot(Vector3 rhs) const;
         [[nodiscard]] Vector3 cross(Vector3 rhs) const;
-        Vector3 rotate(float t_degrees, Vector3 axis);
+        void rotate(float t_degrees, Vector3 axis);
         void normalise();
         // Vector operator overloading
         // TODO - add comparison operators and << for printing
