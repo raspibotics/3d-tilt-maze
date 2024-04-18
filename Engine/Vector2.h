@@ -15,6 +15,7 @@ class Vector2 {
         [[nodiscard]] float magnitude() const;
         [[nodiscard]] float dot(Vector2 rhs) const;
         void rotate(float angle);
+        void print();
 
         Vector2 operator+(Vector2 obj) const;
         void operator+=(Vector2 obj);

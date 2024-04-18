@@ -3,6 +3,7 @@
 
 
 #include "Vector3.h"
+#include "Vector2.h"
 #include <vector>
 
 class Camera {
@@ -17,7 +18,7 @@ class Camera {
         void setPosition(Vector3 position);
         Vector3 getPosition();
 
-        void renderObject3D(std::vector<Vector3> vertices);
+        std::vector<Vector2> projectObjectToPlane(std::vector<Vector3> vertices);
 };
 
 
