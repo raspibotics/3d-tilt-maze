@@ -1,8 +1,6 @@
 #ifndef CUBE_H
 #define CUBE_H
 
-#include "Vector2.h"
-#include "Vector3.h"
 #include "N5110.h"
 #include "Camera.h"
 #include <vector>

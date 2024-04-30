@@ -1,6 +1,4 @@
 #include "ThisThread.h"
-#include "Vector2.h"
-#include "Vector3.h"
 #include "mbed.h"
 #include <stdio.h>
 

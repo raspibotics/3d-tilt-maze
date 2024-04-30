@@ -1,9 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-
-#include "Vector3.h"
-#include "Vector2.h"
+#include "EngineMath.h"
 #include <vector>
 
 class Camera {

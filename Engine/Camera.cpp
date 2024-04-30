@@ -1,6 +1,4 @@
 #include "Camera.h"
-#include "Vector2.h"
-#include "Vector3.h"
 #include <vector>
 
 Camera::Camera() : _position({0,0,0}) {}
