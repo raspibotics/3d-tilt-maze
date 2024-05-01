@@ -32,7 +32,12 @@ int main() {
     while (true) {
         screen.clear();
         test_cube.drawCube(mainCamera, screen);
+
         test_cube2.drawCube(mainCamera, screen);
+        Vector3 test_cube2_position = test_cube2.getPosition();
+        // At this scale a sphere is accurately represented by a 2D circle, simplfying collisions with the cube 'cores' 
+        screen.drawCircle(test_cube2_position.x, test_cube2_position.z, 4, FILL_BLACK);
+
         test_cube3.drawCube(mainCamera, screen);
 
         screen.refresh();

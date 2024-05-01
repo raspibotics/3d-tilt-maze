@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include "EngineMath.h"
 #include <vector>
 
 // Create a unit cube
@@ -11,6 +12,9 @@ Cube::Cube(Vector3 position, float width, float depth, float height) : _position
         _bottomFace[i] += _position;
     } */
 }
+
+Vector3 Cube::getPosition() { return _position; }
+void Cube::setPosition(Vector3 newPositionXYZ) {_position = newPositionXYZ; }
 
 void Cube::drawCube(Camera &camera, N5110 &screen) {
     std::vector<Vector2> cubeBottomFacePoints = camera.projectObjectToPlane(_bottomFace);

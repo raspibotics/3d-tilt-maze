@@ -1,6 +1,7 @@
 #ifndef CUBE_H
 #define CUBE_H
 
+#include "EngineMath.h"
 #include "N5110.h"
 #include "Camera.h"
 #include <vector>
@@ -36,6 +37,9 @@ class Cube {
         Cube();
 
         Cube(Vector3 position, float width, float depth, float height);
+
+        Vector3 getPosition();
+        void setPosition(Vector3 newPositionXYZ);
 
         // TODO - probs can pass by reference here
         void drawCube(Camera &camera, N5110 &screen);
