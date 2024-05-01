@@ -17,6 +17,7 @@ class Camera {
         Vector3 getPosition();
 
         std::vector<Vector2> projectObjectToPlane(std::vector<Vector3> vertices);
+        Vector2 Vector3ToVector2(Vector3 vertex);
 };
 
 

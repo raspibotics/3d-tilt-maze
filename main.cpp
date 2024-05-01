@@ -23,7 +23,7 @@ int main() {
     screen.init(LPH7366_1);
     screen.setContrast(1);      // Set contrast to 55%
     screen.setBrightness(0);     // Set brightness to 50% (utilises the PWM)
-    // Create a camera
+    // Create a camera - TODO fix camera projection, does not take into account camera Z position (Use for perspective projection)
     Camera mainCamera({0,0,10});
     // Create a cube
     Cube test_cube({10,0,10}, 10, 10, 10);

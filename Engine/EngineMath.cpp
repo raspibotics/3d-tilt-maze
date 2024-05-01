@@ -92,7 +92,7 @@ void Vector3::print() const{
 }
 
 /* ------------------------------ 
-   QUATERNION IMPLEMENTATION
+   QUATERNION (Vector4) IMPLEMENTATION
 --------------------------------- */
 Quaternion::Quaternion() : s(0), v() {}
 Quaternion::Quaternion(float s_, Vector3 v_) : s{s_}, v(v_) {}
