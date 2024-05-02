@@ -1,7 +1,9 @@
-#ifndef ENGINEMATH_H
-#define ENGINEMATH_H
+#ifndef ENGINEUTILS_H
+#define ENGINEUTILS_H
 
 #include <iostream>
+#include <vector>
+#include "N5110.h"
 
 // Take integers only as these relate to coordinates on the LCD screen 
 class Vector2 {

@@ -2,7 +2,7 @@
 #define ENGINE_H
 
 // Include all relevant headers - just include this header in main function to redduce includes
-#include "EngineMath.h"
+#include "EngineUtils.h"
 #include "Camera.h"
 #include "Cube.h"
 

@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "EngineMath.h"
+#include "EngineUtils.h"
 #include <vector>
 
 Camera::Camera() : _position({0,0,0}) {}

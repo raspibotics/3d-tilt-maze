@@ -1,5 +1,6 @@
-#include "EngineMath.h"
+#include "EngineUtils.h"
 #include <cmath>
+#include <vector>
 
 const float pi = 3.141592;
 
@@ -17,9 +18,7 @@ void Vector2::rotate(float angle) {
     y = (x*sin(angle) + y*cos(angle));
 }
 
-void Vector2::print() {
-    std::cout << "{" <<  x << ", " << y << "}" << "\n";
-}
+void Vector2::print() { std::cout << "{" <<  x << ", " << y << "}" << "\n"; }
 
 Vector2 Vector2::operator+(Vector2 obj) const { return {x+obj.x, y+obj.y}; }
 void Vector2::operator+=(Vector2 obj) { x+= obj.x; y+= obj.y; }

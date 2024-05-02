@@ -15,10 +15,10 @@
 // Pin assignment format:  lcd(IO, Ser_TX, Ser_RX, MOSI, SCLK, PWM)  
 N5110 screen(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
 
-// Function definitions
-void drawCube(std::vector<Vector2> cubeBottomFacePoints, std::vector<Vector2> cubeTopFacePoints);
-
 int main() {
+
+    initialiseEngine(); // Does nothing atm 
+
     // Initialise the LCD
     screen.init(LPH7366_1);
     screen.setContrast(1);      // Set contrast to 55%
@@ -29,14 +29,19 @@ int main() {
     Cube test_cube({10,0,10}, 10, 10, 10);
     Cube test_cube2({30,0,10}, 10, 20, 15);
     Cube test_cube3({50,0,10}, 30, 8, 10);
+
+    // Create the player
+
+
+
     while (true) {
         screen.clear();
         test_cube.drawCube(mainCamera, screen);
 
         test_cube2.drawCube(mainCamera, screen);
-        Vector3 test_cube2_position = test_cube2.getPosition();
         // At this scale a sphere is accurately represented by a 2D circle, simplfying collisions with the cube 'cores' 
-        screen.drawCircle(test_cube2_position.x, test_cube2_position.z, 4, FILL_BLACK);
+        Vector2 centre = mainCamera.Vector3ToVector2(test_cube2.getPosition());
+        screen.drawCircle(centre.x, centre.y, 4, FILL_BLACK);
 
         test_cube3.drawCube(mainCamera, screen);
 
