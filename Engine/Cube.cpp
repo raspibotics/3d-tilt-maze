@@ -17,30 +17,30 @@ Vector3 Cube::getPosition() { return _position; }
 void Cube::setPosition(Vector3 newPositionXYZ) {_position = newPositionXYZ; }
 
 void Cube::drawCube(Camera &camera, N5110 &screen) {
-    std::vector<Vector2> cubeBottomFacePoints = camera.projectObjectToPlane(_bottomFace);
-    std::vector<Vector2> cubeTopFacePoints = camera.projectObjectToPlane(_topFace);
+    std::vector<Point2D> cubeBottomFacePoints = camera.projectObjectToPlane(_bottomFace);
+    std::vector<Point2D> cubeTopFacePoints = camera.projectObjectToPlane(_topFace);
     // Draw the bottom face
      for (size_t i = 0; i < cubeBottomFacePoints.size(); i++) {
         // Draw bottom face
-        Vector2 currentVertex = cubeBottomFacePoints[i];
-        Vector2 nextVertex = cubeBottomFacePoints[(i + 1) % cubeBottomFacePoints.size()]; // Next vertex (wrap around for last vertex)
+        Point2D currentVertex = cubeBottomFacePoints[i];
+        Point2D nextVertex = cubeBottomFacePoints[(i + 1) % cubeBottomFacePoints.size()]; // Next vertex (wrap around for last vertex)
         screen.drawLine(currentVertex.x, currentVertex.y, nextVertex.x, nextVertex.y, 1);
      }
     // Draw the edges
     for (size_t i = 0; i < cubeBottomFacePoints.size(); i++) {
-        Vector2 currentVertex = cubeBottomFacePoints[i];            
-        Vector2 nextVertex = cubeTopFacePoints[i]; 
+        Point2D currentVertex = cubeBottomFacePoints[i];            
+        Point2D nextVertex = cubeTopFacePoints[i]; 
         screen.drawLine(currentVertex.x, currentVertex.y, nextVertex.x, nextVertex.y, 1); 
     }
     // Draw the top face
     for (size_t i = 0; i < cubeTopFacePoints.size(); i++) {
-        Vector2 currentVertex = cubeTopFacePoints[i];
-        Vector2 nextVertex = cubeTopFacePoints[(i + 1) % cubeTopFacePoints.size()]; // Next vertex (wrap around for last vertex)
+        Point2D currentVertex = cubeTopFacePoints[i];
+        Point2D nextVertex = cubeTopFacePoints[(i + 1) % cubeTopFacePoints.size()]; // Next vertex (wrap around for last vertex)
         screen.drawLine(currentVertex.x, currentVertex.y, nextVertex.x, nextVertex.y, 1);
     }
 
     // Draw the centre of the cube (Hitbox centre)
-    Vector2 centroid_pos = camera.Vector3ToVector2(_position);
+    Point2D centroid_pos = camera.Vector3ToPoint2D(_position);
     screen.setPixel(centroid_pos.x, centroid_pos.y);
 }
 

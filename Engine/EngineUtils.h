@@ -5,14 +5,22 @@
 #include <vector>
 #include "N5110.h"
 
-// Take integers only as these relate to coordinates on the LCD screen 
-class Vector2 {
+// Coordinate class for LCD
+class Point2D {
     public:
         int x;
         int y;
+        Point2D(int x, int y);
+};
+
+// Vector2 works with floats (used for 2D rotations and maths) - use Point2D for screen coordinates
+class Vector2 {
+    public:
+        float x;
+        float y;
 
         Vector2();
-        Vector2(int x_, int y_);
+        Vector2(float x_, float y_);
         [[nodiscard]] float magnitude() const;
         [[nodiscard]] float dot(Vector2 rhs) const;
         void rotate(float angle);

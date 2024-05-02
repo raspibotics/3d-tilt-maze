@@ -31,16 +31,20 @@ int main() {
     Cube test_cube3({50,0,10}, 30, 8, 10);
 
     // Create the player
-
-
+    Player spaceship({60, 20});
+    spaceship.rotatePlayer(95);
 
     while (true) {
+  
         screen.clear();
+
+        spaceship.drawPlayer(screen);
+
         test_cube.drawCube(mainCamera, screen);
 
         test_cube2.drawCube(mainCamera, screen);
         // At this scale a sphere is accurately represented by a 2D circle, simplfying collisions with the cube 'cores' 
-        Vector2 centre = mainCamera.Vector3ToVector2(test_cube2.getPosition());
+        Point2D centre = mainCamera.Vector3ToPoint2D(test_cube2.getPosition());
         screen.drawCircle(centre.x, centre.y, 4, FILL_BLACK);
 
         test_cube3.drawCube(mainCamera, screen);
@@ -49,6 +53,7 @@ int main() {
         test_cube.rotateCube(3, {4,1,3});
         test_cube2.rotateCube(5, {1,0,1});
         test_cube3.rotateCube(7, {5,0,2});
+ 
         ThisThread::sleep_for(100ms);
     }
 }

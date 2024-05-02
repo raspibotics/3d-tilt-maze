@@ -5,6 +5,7 @@
 #include "EngineUtils.h"
 #include "Camera.h"
 #include "Cube.h"
+#include "Player.h"
 
 // do initialisations for Engine - e.g LCD, Joystick etc
 void initialiseEngine();
