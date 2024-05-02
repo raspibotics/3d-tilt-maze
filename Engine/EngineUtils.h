@@ -14,15 +14,12 @@ class Point2D {
 };
 
 class Circle {
-    private:
+    public:
+        // Make public for easier access
         Point2D centre;
         int radius;
-    public:
-        Circle(Point2D, int radius);
-        Point2D getCentre();
-        void setCentre(Point2D centre);
-        int getRadius();
-        void setRadius(int radius);
+
+        Circle(Point2D c, int r);
         // Draws circle (passes to existing method)
         void draw(N5110 &screen);
         // Circle collider

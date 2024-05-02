@@ -1,4 +1,5 @@
 #include "EngineUtils.h"
+#include "N5110.h"
 #include <cmath>
 #include <vector>
 
@@ -8,6 +9,20 @@ const float pi = 3.141592;
    POINT2D IMPLEMENTATION - Use for coords
 --------------------------------- */
 Point2D::Point2D(int x, int y) : x(x), y(y) {}
+
+/* ------------------------------ 
+   CIRCLE IMPLEMENTATION - Use for coords
+--------------------------------- */
+Circle::Circle(Point2D c, int r) : centre(c), radius(r) {}
+// Draws circle (passes to existing method) - TODO add options for different fills if needed?
+void Circle::draw(N5110 &screen) { screen.drawCircle(centre.x, centre.y, radius, FILL_BLACK); }
+// Circle collider
+bool Circle::isCollidingWith(Circle other_circle) {
+    int distance_squared = pow(centre.x - other_circle.centre.x, 2) + 
+                            pow(centre.y - other_circle.centre.y, 2);
+    int radii_sum_squared = pow(radius + other_circle.radius, 2);
+    return distance_squared <= radii_sum_squared;
+}
 
 /* ------------------------------ 
    VECTOR2 IMPLEMENTATION - Use for vector maths then cast to Point2D
