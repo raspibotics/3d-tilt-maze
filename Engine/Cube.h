@@ -16,6 +16,9 @@ class Cube {
         float _depth;
         float _height;  
 
+        // Basically wether to render cube or not, should probs call destructor but would need to restructure game loop
+        bool _destroyed = false;
+
         // Vertices of the cube with respect to the upper-leftmost corner vertex [TESTING]
         //std::vector<Vector3> _bottomFace = {{0,0,0}, {0,0,_depth}, {_width,0,_depth}, {_width,0,0}};
         //std::vector<Vector3> _topFace = {{0,_height,0}, {0,_height,_depth}, {_width,_height,_depth}, {_width,_height,0}};
@@ -40,6 +43,8 @@ class Cube {
 
         Vector3 getPosition();
         void setPosition(Vector3 newPositionXYZ);
+        bool isDestroyed();
+        void destroyCube(bool destroyed); 
 
         // TODO - probs can pass by reference here
         void drawCube(Camera &camera, N5110 &screen);

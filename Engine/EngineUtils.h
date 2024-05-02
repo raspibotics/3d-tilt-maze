@@ -13,6 +13,23 @@ class Point2D {
         Point2D(int x, int y);
 };
 
+class Circle {
+    private:
+        Point2D centre;
+        int radius;
+    public:
+        Circle(Point2D, int radius);
+        Point2D getCentre();
+        void setCentre(Point2D centre);
+        int getRadius();
+        void setRadius(int radius);
+        // Draws circle (passes to existing method)
+        void draw(N5110 &screen);
+        // Circle collider
+        bool isCollidingWith(Circle other_circle);
+
+};
+
 // Vector2 works with floats (used for 2D rotations and maths) - use Point2D for screen coordinates
 class Vector2 {
     public:

@@ -93,20 +93,18 @@ int main() {
         // Draw player
         spaceship.drawPlayer(screen);
 
-       
-
         test_cube.drawCube(mainCamera, screen);
         Point2D centre = mainCamera.Vector3ToPoint2D(test_cube.getPosition());
         screen.drawCircle(centre.x, centre.y, 2, FILL_BLACK);
 
         test_cube2.drawCube(mainCamera, screen);
         // At this scale a sphere is accurately represented by a 2D circle, simplfying collisions with the cube 'cores' 
-        centre = mainCamera.Vector3ToPoint2D(test_cube2.getPosition());
-        screen.drawCircle(centre.x, centre.y, 4, FILL_BLACK);
+        Point2D centre2 = mainCamera.Vector3ToPoint2D(test_cube2.getPosition());
+        screen.drawCircle(centre2.x, centre2.y, 4, FILL_BLACK);
 
         test_cube3.drawCube(mainCamera, screen);
-        centre = mainCamera.Vector3ToPoint2D(test_cube3.getPosition());
-        screen.drawCircle(centre.x, centre.y, 3, FILL_BLACK);
+        Point2D centre3 = mainCamera.Vector3ToPoint2D(test_cube3.getPosition());
+        screen.drawCircle(centre3.x, centre3.y, 3, FILL_BLACK);
 
         screen.refresh();
         test_cube.rotateCube(3, {4,1,3});
