@@ -52,6 +52,8 @@ class Vector2 {
 
 Vector2 operator*(float scalar, Vector2 obj);
 
+Point2D Vector2ToPoint2D(Vector2 vec);
+
 // Class for 3D coordinates 
 class Vector3 {
     public:
@@ -83,6 +85,9 @@ class Vector3 {
 };
 
 Vector3 operator*(float scalar, Vector3 obj);
+
+// Projection (orthographic) function for single point
+Point2D Vector3ToPoint2D(Vector3 vertex);
 
 class Quaternion {
     public:

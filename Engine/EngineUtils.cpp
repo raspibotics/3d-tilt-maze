@@ -10,6 +10,11 @@ const float pi = 3.141592;
 --------------------------------- */
 Point2D::Point2D(int x, int y) : x(x), y(y) {}
 
+// Handle type conversion between Vector2 and Point2D
+Point2D Vector2ToPoint2D(Vector2 vec) {
+    return {static_cast<int>(vec.x), static_cast<int>(vec.y)};
+}
+
 /* ------------------------------ 
    CIRCLE IMPLEMENTATION - Use for coords
 --------------------------------- */
@@ -108,6 +113,10 @@ void Vector3::operator/=(float scalar) { x/=scalar; y/=scalar; z/=scalar;}
 // Print Vector3 object
 void Vector3::print() const{
     std::cout << "{" << x << ", " << y << ", " << z << "}";
+}
+
+Point2D Vector3ToPoint2D(Vector3 vertex) {
+    return {static_cast<int>(vertex.x), static_cast<int>(vertex.z)};
 }
 
 /* ------------------------------ 

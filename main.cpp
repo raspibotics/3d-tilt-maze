@@ -1,8 +1,10 @@
+#include "EngineUtils.h"
 #include "ThisThread.h"
 #include "mbed.h"
 
 // Include libraries for LCD
 #include "N5110.h"
+#include <cstdio>
 
 // Include library for Joystick
 #include "Joystick.h"
@@ -16,10 +18,8 @@ void boundary(int x, int y);
 
 // Pin assignment format:  lcd(IO, Ser_TX, Ser_RX, MOSI, SCLK, PWM)  
 N5110 screen(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
-
 //                  y     x
 Joystick joystick(PC_0, PC_1);  // Attach and create joystick object
-
 DigitalIn fireMissile(PA_8);
 
 
@@ -41,8 +41,14 @@ int main() {
     
     // Create cubes
     Cube test_cube({10,0,10}, 10, 10, 10);
+    Circle cube_core(Vector3ToPoint2D(test_cube.getPosition()), 2);
+
+
     Cube test_cube2({30,0,10}, 10, 20, 15);
-    Cube test_cube3({50,0,10}, 30, 8, 10);
+    Circle cube2_core(Vector3ToPoint2D(test_cube.getPosition()), 4);
+
+    Cube test_cube3({63,0,10}, 30, 8, 10);
+    Circle cube3_core(Vector3ToPoint2D(test_cube.getPosition()), 3);
 
     // Create the player
     Player spaceship({60, 38});
@@ -50,10 +56,14 @@ int main() {
 
     int timer = 0; 
     bool fired = false; 
-    Vector2 missilePos;
+    Point2D missilePos(0,0);
+
+    Circle missile(missilePos, 2);
 
     while (true) {
         screen.clear();
+
+        screen.printString("Shots:", 0, 1);
 
         // Draws screen border
         screen.drawRect(0,0,84,48,FILL_TRANSPARENT);   
@@ -63,11 +73,12 @@ int main() {
         // Continue motion of projectile if fired
         if (fired) {
             missilePos.y-=2;
-            if (missilePos.y <= 0){
+            if (missilePos.y <= 2){
                 fired = false;
             } 
             if (fired){
-                screen.drawCircle(missilePos.x, missilePos.y, 2, FILL_BLACK);
+                missile.centre = missilePos;
+                missile.draw(screen);
             }
         }
 
@@ -82,31 +93,42 @@ int main() {
             spaceship.setPosition(player_pos);
             printf(" Direction: W\n");
         }
-
          if (!fireMissile && !fired) {
-            screen.drawCircle(player_pos.x, player_pos.y, 2, FILL_BLACK);
             fired = true; 
-            missilePos = player_pos;
+            missilePos = Vector2ToPoint2D(player_pos);
+            missile.centre = missilePos;
+            missile.draw(screen);
             printf("Fire missile!\n");
         }
 
         // Draw player
         spaceship.drawPlayer(screen);
 
-        test_cube.drawCube(mainCamera, screen);
-        Point2D centre = mainCamera.Vector3ToPoint2D(test_cube.getPosition());
-        screen.drawCircle(centre.x, centre.y, 2, FILL_BLACK);
+     
+        // If cube core has collided with missile, stop rendering cube
+        if (fired && cube_core.isCollidingWith(missile)) { test_cube.destroyCube(true); }
+        if (!test_cube.isDestroyed()){
+            cube_core.centre = Vector3ToPoint2D(test_cube.getPosition());
+            cube_core.draw(screen);
+            test_cube.drawCube(mainCamera, screen);
+        }
+        if (fired && cube2_core.isCollidingWith(missile)) { test_cube2.destroyCube(true); }
+        if (!test_cube2.isDestroyed()){
+            cube2_core.centre = Vector3ToPoint2D(test_cube2.getPosition());
+            cube2_core.draw(screen);
+            test_cube2.drawCube(mainCamera, screen);
+        }
+        if (fired && cube3_core.isCollidingWith(missile)) { test_cube3.destroyCube(true); }
+        if (!test_cube3.isDestroyed()){
+            cube3_core.centre = Vector3ToPoint2D(test_cube3.getPosition());
+            cube3_core.draw(screen);
+            test_cube3.drawCube(mainCamera, screen);
+        }
 
-        test_cube2.drawCube(mainCamera, screen);
-        // At this scale a sphere is accurately represented by a 2D circle, simplfying collisions with the cube 'cores' 
-        Point2D centre2 = mainCamera.Vector3ToPoint2D(test_cube2.getPosition());
-        screen.drawCircle(centre2.x, centre2.y, 4, FILL_BLACK);
-
-        test_cube3.drawCube(mainCamera, screen);
-        Point2D centre3 = mainCamera.Vector3ToPoint2D(test_cube3.getPosition());
-        screen.drawCircle(centre3.x, centre3.y, 3, FILL_BLACK);
 
         screen.refresh();
+
+        // Spin the cubes around a weird axis to make them appear floating
         test_cube.rotateCube(3, {4,1,3});
         test_cube2.rotateCube(5, {1,0,1});
         test_cube3.rotateCube(7, {5,0,2});
