@@ -18,6 +18,7 @@ class Player {
 
         Vector2 getPosition();
         void setPosition(Vector2 position);
+        void _updatePoints();
 
         void drawPlayer(N5110 &screen);
         void rotatePlayer(float angle);
