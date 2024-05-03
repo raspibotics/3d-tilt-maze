@@ -6,16 +6,35 @@
 // Create a unit cube
 Cube::Cube() : _position(0,0,0), _width(1), _depth(1), _height(1) {}
 // Custom constructor for cube/cuboid
-Cube::Cube(Vector3 position, float width, float depth, float height) : _position(position), _width(width), _depth(depth), _height(height) {
-    // Offset by position - Not really needed anymore (Legacy top corner positioning)
-    /*for (size_t i = 0; i < _topFace.size(); i++) {
-        _topFace[i] += _position;
-        _bottomFace[i] += _position;
-    } */
+Cube::Cube(Vector3 position, float width, float depth, float height) : _position(position), _width(width), _depth(depth), _height(height) {}
+
+
+void Cube::updateFaces() {
+     // Vertices of bottom face of cube with respect to _position which is treated as the centroid point
+     _bottomFace.clear();
+     _bottomFace = {{_position.x-_width/2,_position.y-_height/2, _position.z-_depth/2}, 
+        {_position.x-_width/2,_position.y-_height/2,_position.z+_depth/2}, 
+        {_position.x+_width/2,_position.y-_height/2, _position.z+_depth/2}, 
+        {_position.x+_width/2,_position.y-_height/2,_position.z-_depth/2}};
+    _topFace.clear();
+    // Points of top face of cube with respect to _position which is treated as the centroid point
+    _topFace = {{_position.x-_width/2, _position.y+_height/2, _position.z-_depth/2}, 
+        {_position.x-_width/2, _position.y+_height/2, _position.z+_depth/2}, 
+        {_position.x+_width/2, _position.y+_height/2, _position.z+_depth/2}, 
+        {_position.x+_width/2, _position.y+_height/2,  _position.z-_depth/2}};
 }
 
 Vector3 Cube::getPosition() { return _position; }
-void Cube::setPosition(Vector3 newPositionXYZ) {_position = newPositionXYZ; }
+void Cube::setPosition(Vector3 newPositionXYZ) {
+    _position = newPositionXYZ;
+    updateFaces(); 
+}
+void Cube::setWidthDepthHeight(float width, float height, float depth) { 
+    _width = width; 
+    _height = height;
+    _depth = depth;
+    updateFaces();
+}
 
 bool Cube::isDestroyed() { return _destroyed; }
 void Cube::destroyCube(bool destroyed) { _destroyed = destroyed; }

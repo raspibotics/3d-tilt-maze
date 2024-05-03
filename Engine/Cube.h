@@ -19,11 +19,6 @@ class Cube {
         // Basically wether to render cube or not, should probs call destructor but would need to restructure game loop
         bool _destroyed = false;
 
-        // Vertices of the cube with respect to the upper-leftmost corner vertex [TESTING]
-        //std::vector<Vector3> _bottomFace = {{0,0,0}, {0,0,_depth}, {_width,0,_depth}, {_width,0,0}};
-        //std::vector<Vector3> _topFace = {{0,_height,0}, {0,_height,_depth}, {_width,_height,_depth}, {_width,_height,0}};
-
-        // Vertices of bottom face of cube with respect to _position which is treated as the centroid point
         std::vector<Vector3> _bottomFace = {{_position.x-_width/2,_position.y-_height/2, _position.z-_depth/2}, 
         {_position.x-_width/2,_position.y-_height/2,_position.z+_depth/2}, 
         {_position.x+_width/2,_position.y-_height/2, _position.z+_depth/2}, 
@@ -41,10 +36,14 @@ class Cube {
 
         Cube(Vector3 position, float width, float depth, float height);
 
+        void updateFaces();
+
         Vector3 getPosition();
         void setPosition(Vector3 newPositionXYZ);
         bool isDestroyed();
         void destroyCube(bool destroyed); 
+
+        void setWidthDepthHeight(float width, float height, float depth);
 
         // TODO - probs can pass by reference here
         void drawCube(Camera &camera, N5110 &screen);
